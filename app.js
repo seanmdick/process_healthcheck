@@ -5,9 +5,9 @@ var http = require('http'),
   processPath;
 
 if (args.h || args.help) {
-  console.log('Options: \
-    \n\t--port: \tport for the server to run on. *required \
-    \n\t--watch:\tservice name to watch via "/etc/init.d/<specified> status" *required \
+  console.info('Options: \
+    \n\t--port: \tport for the server to run on. **required** \
+    \n\t--watch:\tservice name to watch via "/etc/init.d/<specified> status" **required** \
     \n\t-h --help:\tdisplay this message.');
   return;
 }
@@ -21,11 +21,9 @@ http.createServer(function (req, res) {
   var check = checkHealth();
 
   if (check) {
-    console.log('DEAD');
     res.writeHead(200, {'Content-Type': 'text/plain'})
     res.end("PONG")
   } else {
-    console.log('ALIVE');
     res.writeHead(400, {'Content-Type': 'text/plain'})
     res.end("");
   }
