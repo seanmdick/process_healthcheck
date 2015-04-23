@@ -2,6 +2,7 @@ var http = require('http'),
   assert = require('assert'),
   child_process = require('child_process'),
   args = require('minimist')(process.argv.slice(2)),
+  blackList = /[`;&|\\'"!$]/,
   processPath;
 
 if (args.h || args.help) {
@@ -14,6 +15,7 @@ if (args.h || args.help) {
 
 assert.ok(args.port, 'Port must be specified.');
 assert.ok(args.watch, 'Watched process name must be specified.');
+assert.doesNotThrow(nonMaliciousWatchArgument, "Specified watch command is invalid");
 
 processPath = '/etc/init.d/'+args.watch;
 
@@ -39,4 +41,10 @@ function checkHealth () {
       return true;
     }
   });
+}
+
+function nonMaliciousWatchArgument () {
+  if (blackList.test(args.watch)) {
+    throw new Error('Bad characters');
+  }
 }
