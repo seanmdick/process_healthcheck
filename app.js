@@ -6,13 +6,15 @@ var http = require('http'),
   processPath;
 
 if (args.h || args.help) {
-  console.info('Options: \
-    \n\t--port: \tport for the server to run on. **required** \
-    \n\t--watch:\tservice name to watch via "/etc/init.d/<specified> status" **required** \
-    \n\t-h --help:\tdisplay this message.');
+  console.info('process_healthcheck is a lightweight healthcheck endpoint for a service running via init \
+    \n\nOptions: \
+    \n\t--port\t-p: \tport for the server to run on. **required** \
+    \n\t--watch\t-w:\tservice name to watch via "/etc/init.d/<specified> status" **required** \
+    \n\t-h  --help:\tdisplay this message.');
   return;
 }
-
+args.port = args.port || args.p;
+args.watch = args.watch || args.w;
 assert.ok(args.port, 'Port must be specified.');
 assert.ok(args.watch, 'Watched process name must be specified.');
 assert.doesNotThrow(nonMaliciousWatchArgument, "Specified watch command is invalid");
