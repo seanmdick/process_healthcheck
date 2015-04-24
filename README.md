@@ -12,7 +12,10 @@ It responds with a `200` only iff the returned status is `0`
   TODO
 
 ## Usage
-  Bring the app up with. Both `--port/-p` and `--watch/-w` options are required.
+  Bring the app up with.
   `node app.js --port <port> --watch <service_name>`
+  
+### Note: 
+  Both `--port/-p` and `--watch/-w` options are required.
 
   
